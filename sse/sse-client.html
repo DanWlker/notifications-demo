@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SSE Demo</title>
+    <style>
+      body {
+        font-family: monospace;
+        padding: 2rem;
+        background: #111;
+        color: #eee;
+      }
+      h2 {
+        color: #7cf;
+      }
+      .box {
+        border: 1px solid #444;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 6px;
+      }
+      .log {
+        height: 200px;
+        overflow-y: auto;
+        background: #1a1a1a;
+        padding: 0.5rem;
+        font-size: 0.85rem;
+      }
+      .log p {
+        margin: 2px 0;
+      }
+      .snapshot {
+        color: #7fc;
+      }
+      .update {
+        color: #fc7;
+      }
+      .reconnect {
+        color: #f77;
+      }
+      button {
+        margin: 0.25rem;
+        padding: 0.4rem 1rem;
+        background: #333;
+        color: #eee;
+        border: 1px solid #555;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #444;
+      }
+      .state {
+        font-size: 1.1rem;
+        padding: 0.5rem;
+        background: #222;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+    <script src="./sse-client.js"></script>
+  </head>
+  <body>
+    <h1>SSE Patterns Demo</h1>
+
+    <!-- Pattern 1: Last-Event-ID Replay -->
+    <div class="box">
+      <h2>Pattern 1: Last-Event-ID Replay</h2>
+      <p>On reconnect, server replays only <em>missed</em> events since the last received ID.</p>
+      <div class="state" id="replay-state">state: (not connected)</div>
+      <button onclick="startReplay()">Connect</button>
+      <button onclick="stopReplay()">Disconnect</button>
+      <div class="log" id="replay-log"></div>
+    </div>
+  </body>
+</html>
