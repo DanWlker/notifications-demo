@@ -50,12 +50,30 @@
       button:hover {
         background: #444;
       }
-      .state {
-        font-size: 1.1rem;
-        padding: 0.5rem;
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+      }
+      th, td {
+        padding: 0.5rem 1rem;
+        border: 1px solid #444;
+        text-align: left;
+      }
+      th {
         background: #222;
-        border-radius: 4px;
-        margin-bottom: 0.5rem;
+        color: #7cf;
+      }
+      tr:nth-child(even) {
+        background: #1a1a1a;
+      }
+      .status-pending {
+        color: #fc7;
+        font-weight: bold;
+      }
+      .status-ready {
+        color: #7fc;
+        font-weight: bold;
       }
     </style>
     <script src="./sse-client.js"></script>
@@ -67,9 +85,20 @@
     <div class="box">
       <h2>Pattern 1: Last-Event-ID Replay</h2>
       <p>On reconnect, server replays only <em>missed</em> events since the last received ID.</p>
-      <div class="state" id="replay-state">state: (not connected)</div>
       <button onclick="startReplay()">Connect</button>
       <button onclick="stopReplay()">Disconnect</button>
+      <table id="replay-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="replay-tbody">
+          <tr><td colspan="3" style="color:#777">(not connected)</td></tr>
+        </tbody>
+      </table>
       <div class="log" id="replay-log"></div>
     </div>
   </body>

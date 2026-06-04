@@ -9,8 +9,27 @@ function log(logId, msg, cls) {
   el.scrollTop = el.scrollHeight;
 }
 
-function setState(stateId, data) {
-  document.getElementById(stateId).textContent = `state: ${JSON.stringify(data)}`;
+function renderTable(rows) {
+  const tbody = document.getElementById("replay-tbody");
+  tbody.innerHTML = "";
+  for (const row of rows) {
+    const tr = document.createElement("tr");
+    tr.id = `row-${row.id}`;
+    tr.innerHTML = `
+      <td>${row.id}</td>
+      <td>${row.name}</td>
+      <td class="status-${row.status}">${row.status}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+function updateRow(id, status) {
+  const tr = document.getElementById(`row-${id}`);
+  if (!tr) return;
+  const td = tr.querySelector("td:last-child");
+  td.className = `status-${status}`;
+  td.textContent = status;
 }
 
 // --- Pattern 1: Replay ---
@@ -21,14 +40,14 @@ function startReplay() {
 
   replayEs.addEventListener("snapshot", (e) => {
     const data = JSON.parse(e.data);
-    setState("replay-state", data);
-    log("replay-log", `SNAPSHOT received: ${e.data}`, "snapshot");
+    renderTable(data);
+    log("replay-log", `SNAPSHOT received: ${data.length} rows`, "snapshot");
   });
 
   replayEs.addEventListener("update", (e) => {
     const data = JSON.parse(e.data);
-    setState("replay-state", data);
-    log("replay-log", `UPDATE id=${e.lastEventId}: ${e.data}`, "update");
+    updateRow(data.id, data.status);
+    log("replay-log", `UPDATE id=${e.lastEventId}: row ${data.id} → ${data.status}`, "update");
   });
 
   replayEs.addEventListener("open", () => {
