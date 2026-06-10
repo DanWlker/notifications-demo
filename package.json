@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "ws-server": "node ws/ws-server.js",
     "sse-server": "node sse/sse-server.js",
-    "gql-ws-server": "node gql-ws/gql-ws-server.js"
+    "gql-ws-server": "node gql-ws/gql-ws-server.js",
+    "gql-ws-react-server": "node gql-ws-react/gql-ws-react-server.js"
   },
   "dependencies": {
     "@graphql-tools/schema": "^10.0.0",
