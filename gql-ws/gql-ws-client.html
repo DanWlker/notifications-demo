@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GraphQL-WS Demo</title>
+    <style>
+      body {
+        font-family: monospace;
+        padding: 2rem;
+        background: #111;
+        color: #eee;
+      }
+      h2 {
+        color: #7cf;
+      }
+      .box {
+        border: 1px solid #444;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 6px;
+      }
+      .log {
+        height: 200px;
+        overflow-y: auto;
+        background: #1a1a1a;
+        padding: 0.5rem;
+        font-size: 0.85rem;
+      }
+      .log p {
+        margin: 2px 0;
+      }
+      .snapshot {
+        color: #7fc;
+      }
+      .update {
+        color: #fc7;
+      }
+      .reconnect {
+        color: #f77;
+      }
+      button {
+        margin: 0.25rem;
+        padding: 0.4rem 1rem;
+        background: #333;
+        color: #eee;
+        border: 1px solid #555;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #444;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+      }
+      th,
+      td {
+        padding: 0.5rem 1rem;
+        border: 1px solid #444;
+        text-align: left;
+      }
+      th {
+        background: #222;
+        color: #7cf;
+      }
+      tr:nth-child(even) {
+        background: #1a1a1a;
+      }
+      .status-pending {
+        color: #fc7;
+        font-weight: bold;
+      }
+      .status-ready {
+        color: #7fc;
+        font-weight: bold;
+      }
+    </style>
+    <script src="https://unpkg.com/graphql-ws/umd/graphql-ws.min.js"></script>
+    <script src="/gql-ws-client.js"></script>
+  </head>
+  <body>
+    <h1>GraphQL-WS Demo</h1>
+
+    <div class="box">
+      <h2>Order Status</h2>
+      <p>
+        Server pushes a full snapshot on subscribe, then cycles row statuses every 3s via GraphQL
+        subscription.
+      </p>
+      <button onclick="connect()">Connect</button>
+      <button onclick="disconnect()">Disconnect</button>
+      <table id="gql-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="gql-tbody">
+          <tr>
+            <td colspan="3" style="color: #777">(not connected)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="log" id="gql-log"></div>
+    </div>
+  </body>
+</html>

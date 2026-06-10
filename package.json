@@ -10,10 +10,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "ws-server": "node ws/ws-server.js",
-    "sse-server": "node sse/sse-server.js"
+    "sse-server": "node sse/sse-server.js",
+    "gql-ws-server": "node gql-ws/gql-ws-server.js"
   },
   "dependencies": {
+    "@graphql-tools/schema": "^10.0.0",
     "express": "^5.2.1",
+    "graphql": "^16.0.0",
+    "graphql-ws": "^5.16.0",
     "ws": "^8.21.0"
   },
   "devEngines": {
